@@ -1,8 +1,8 @@
-import $http from "axios";
+import $http from "axios/index";
 import React from "react";
-import { mount, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import { HomePageTest } from "../../../src/components/home/home-page";
+import { mount, configure } from "enzyme/build";
+import Adapter from "enzyme-adapter-react-16/build";
+import { HomePageTest } from "../../../components/home/home-page";
 
 configure({ adapter: new Adapter() });
 

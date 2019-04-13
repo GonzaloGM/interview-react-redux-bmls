@@ -6,6 +6,8 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { getCommunications } from "../../actions/commsLeadActions";
 import { Grid } from "@material-ui/core";
+import CommunicationsAccordion from '../communications-lead/CommunicationsAccordion'
+import EditableCommunicationInformation from '../communications-lead/EditableCommunicationInformation'
 
 const styles = {};
 
@@ -16,22 +18,26 @@ class ExercisePage extends Component {
 	}
 
 	render() {
-		const { commsLeadLoadStatus, communications } = this.props;
+		const { commsLeadLoadStatus, communications, classes } = this.props;
 		if (commsLeadLoadStatus === LoadStatus.REQUEST) {
 			return <>Loading...</>;
 		}
+
+		let lastCommunication = null;
+		let sortedCommunications = null;
+		if (communications.length) {
+			lastCommunication = communications[0];
+			sortedCommunications = communications[0].publish_history.sort((a,b) => b.created['$date'] - a.created['$date']);
+		}
+
 		return (
 			<>
 				<Grid container>
 					<Grid item xs={12}>
+						{lastCommunication && <EditableCommunicationInformation datelabel='Creation Date' datevalue={lastCommunication.created} communication={lastCommunication} classes={classes} />}
 						{communications.length > 0
-							? communications.map(comm => (
-									<div key={comm.id}>
-										<h2>Communications:</h2>
-										<pre>
-											{JSON.stringify(comm, null, 4)}
-										</pre>
-									</div>
+							? sortedCommunications.map(comm => (
+									<CommunicationsAccordion communication={comm} datevalue={comm.created['$date']} key={comm.created['$date']} />
 							  ))
 							: "No communications found."}
 					</Grid>

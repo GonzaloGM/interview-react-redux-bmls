@@ -27,6 +27,10 @@ const MenuBar = memo(({ classes }) => (
     <Link className={classes.menuItem} to="/exercise">
       Exercise
     </Link>
+    |
+    <Link className={classes.menuItem} to="/json">
+      JSON
+    </Link>
   </Grid>
 ));
 

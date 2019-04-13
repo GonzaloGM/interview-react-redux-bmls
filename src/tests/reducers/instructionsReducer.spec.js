@@ -1,7 +1,7 @@
-import $http from "axios";
-import { LoadStatus } from "../../src/constants/loadStatus";
-import instructionsReducer from "../../src/reducers/instructionsReducer";
-import initialState from "../../src/store/initialState";
+import $http from "axios/index";
+import { LoadStatus } from "../../constants/loadStatus";
+import instructionsReducer from "../../reducers/instructionsReducer";
+import initialState from "../../store/initialState";
 
 describe("Instructions Reducer", () => {
 	it("Should get instructions", async () => {
