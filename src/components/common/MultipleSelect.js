@@ -48,7 +48,6 @@ class MultipleSelect extends Component {
   // };
 
   handleChange = event => {
-    console.log('handleChange event', event)
     this.props.onChange(event);
     // this.setState({ selectvalues: event.target.value });
   };

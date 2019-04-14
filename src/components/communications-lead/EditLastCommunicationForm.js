@@ -37,7 +37,6 @@ class EditLastCommunicationForm extends Component {
   }
 
   handleInputChange = (event) => {
-    console.log('EditLastCommunicationForm handleInputChange event', event.target)
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
