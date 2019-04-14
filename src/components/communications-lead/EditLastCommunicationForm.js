@@ -1,6 +1,31 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { updateLastCommunication } from '../../actions/commsLeadActions'
+import MultipleSelect from '../common/MultipleSelect'
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+});
 
 class EditLastCommunicationForm extends Component {
   state = {
@@ -24,29 +49,61 @@ class EditLastCommunicationForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     console.log('EditLastCommunicationForm: form submitted');
-    // TODO update state and push history
     this.props.updateLastCommunication(this.state);
     this.props.handleSubmit();
   }
 
   render () {
+    const { classes } = this.props;
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>
-          Executive Summary
-          <input
+        <div>
+          <TextField
+            id="summary"
+            label="Executive Summary"
+            className={classes.textField}
             name="summary"
-            type="text"
             value={this.state.summary}
-            onChange={this.handleInputChange} />
-        </label>
+            onChange={this.handleInputChange}
+            margin="normal"
+          />
+        </div>
+        <div>
+          <MultipleSelect
+            label="Tags"
+            name="tags"
+          />
+        </div>
+        <div>
+          <MultipleSelect
+            label="Emails"
+            name="emails"
+          />
+        </div>
+        <div>
+          <MultipleSelect
+            label="Phones"
+            name="phones"
+          />
+        </div>
+        <div>
+          <MultipleSelect
+            label="Slack Channels"
+            name="slack_channels"
+          />
+        </div>
         <br />
-        <button type="submit" value="Submit">Submit</button>
-        <br />
-        <button value="Cancel" onClick={this.props.handleCancel}>Cancel</button>
+        <Button variant="contained" className={classes.button} onClick={this.props.handleCancel}>
+          Cancel
+        </Button>
+        <Button variant="contained" color="primary" className={classes.button} type="submit">
+          Save
+        </Button>
       </form>
     )
   }
 }
 
-export default connect(null, { updateLastCommunication })(EditLastCommunicationForm);
+const wrappedForm = withStyles(styles)(EditLastCommunicationForm);
+
+export default connect(null, { updateLastCommunication })(wrappedForm);

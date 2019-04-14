@@ -8,17 +8,28 @@ import { getCommunications } from "../../actions/commsLeadActions";
 import { Grid } from "@material-ui/core";
 import CommunicationsAccordion from '../communications-lead/CommunicationsAccordion'
 import EditableCommunicationInformation from '../communications-lead/EditableCommunicationInformation'
+import Switch from '@material-ui/core/Switch';
+import Collapse from '@material-ui/core/Collapse';
 
 const styles = {};
 
 class ExercisePage extends Component {
+	state = {
+		showPushHistory: true
+	}
+
 	componentDidMount() {
 		const { onGetCommunications } = this.props;
 		onGetCommunications();
 	}
 
+	handleChangeShowPushHistory = () => {
+		this.setState(state => ({ showPushHistory: !state.showPushHistory }));
+	};
+
 	render() {
 		const { commsLeadLoadStatus, communications, classes } = this.props;
+		const { showPushHistory } = this.state;
 		if (commsLeadLoadStatus === LoadStatus.REQUEST) {
 			return <>Loading...</>;
 		}
@@ -34,12 +45,22 @@ class ExercisePage extends Component {
 			<>
 				<Grid container>
 					<Grid item xs={12}>
-						{lastCommunication && <EditableCommunicationInformation datelabel='Creation Date' datevalue={lastCommunication.created} communication={lastCommunication} classes={classes} />}
-						{communications.length > 0
-							? sortedPublishHistory.map((comm, index) => (
-									<CommunicationsAccordion communication={comm} datevalue={comm.created['$date']} key={comm.created['$date'] + index + Math.random()} />
-							  ))
-							: "No communications found."}
+						<h2>Last Communication</h2>
+						{lastCommunication && <EditableCommunicationInformation datelabel='Last Updated' datevalue={lastCommunication.updated} communication={lastCommunication} classes={classes} />}
+						<div>
+							<label htmlFor="switchShowPushHistory">Show Publish History</label>
+							<Switch id="switchShowPushHistory" checked={showPushHistory} onChange={this.handleChangeShowPushHistory} aria-label="Collapse" />
+						</div>
+						<div className={classes.container}>
+							<Collapse in={showPushHistory}>
+								<h2>Publish History</h2>
+								{communications.length > 0
+									? sortedPublishHistory.map((comm, index) => (
+										<CommunicationsAccordion communication={comm} datevalue={comm.created['$date']} key={comm.created['$date'] + index + Math.random()} />
+									))
+									: "No communications found."}
+							</Collapse>
+						</div>
 					</Grid>
 				</Grid>
 			</>

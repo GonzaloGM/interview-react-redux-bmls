@@ -22,7 +22,7 @@ const styles = theme => ({
 
 function CommunicationsAccordion(props) {
   const { classes, communication } = props;
-  const creationDate = format(new Date(communication.created['$date']), 'MM/DD/YYYY h:mm:ss a');
+  const creationDate = format(new Date(communication.created['$date']), 'YYYY-MM-DD hh:mm:ss Z');
   // if (!communication) {
   //   return <div />
   // }
@@ -30,7 +30,7 @@ function CommunicationsAccordion(props) {
     <div className={classes.root}>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>{communication.summary} ({creationDate})</Typography>
+          <Typography className={classes.heading}>({creationDate}) - {communication.summary} </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <CommunicationInformation communication={communication} classes={classes}/>
