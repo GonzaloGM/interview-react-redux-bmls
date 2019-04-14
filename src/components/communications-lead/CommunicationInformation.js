@@ -6,7 +6,7 @@ const CommunicationInformation = ({communication, datelabel = 'Publish Date', da
   if (!communication) {
     return <div />
   }
-  const creationDate = format(new Date(datevalue || communication.created['$date']), 'MM/DD/YYYY h:mm:ss a');
+  const creationDate = format(new Date(datevalue || communication.created['$date']), 'YYYY-MM-DD hh:mm:ss Z');
   return (
     <div>
       <ul>

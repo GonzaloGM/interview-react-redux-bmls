@@ -4,6 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import PropTypes from 'prop-types';
 import CommunicationInformation from './CommunicationInformation'
+import EditLastCommunicationForm from './EditLastCommunicationForm'
+import SnackbarMessage, { openSnackbar } from '../common/SnackbarMessage'
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -37,17 +39,25 @@ const editableCommInfoStyles = {
 
 class EditableCommunicationInformation extends Component {
   state = {
-    open: false
+    openModal: false
   };
 
   handleOpen = () => {
     console.log('handleOpen props', this.props);
-    this.setState({ open: true });
+    this.setState({ openModal: true });
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    console.log('closing modal', this);
+    this.setState({ openModal: false });
   };
+
+  handleSubmit = (e) => {
+    console.log('EditableCommunicationInformation: Submitted form!');
+    this.handleClose();
+    // if I call handleClose it doesn't show Snackbar
+    openSnackbar({ 'message': 'Successfully submitted' });
+  }
 
   render() {
     const { classes, ...otherProps } = this.props;
@@ -57,10 +67,11 @@ class EditableCommunicationInformation extends Component {
         <div onClick={this.handleOpen} style={editableCommInfoStyles}>
           <CommunicationInformation {...this.props} />
         </div>
+
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
-          open={this.state.open}
+          open={this.state.openModal}
           onClose={this.handleClose}
           {...otherProps}
         >
@@ -69,11 +80,12 @@ class EditableCommunicationInformation extends Component {
               Edit Communication
             </Typography>
             <Typography variant="subtitle1" id="simple-modal-description">
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              <EditLastCommunicationForm communication={this.props.communication} handleCancel={this.handleClose} handleSubmit={this.handleSubmit} />
             </Typography>
             <SimpleModalWrapped />
           </div>
         </Modal>
+        <SnackbarMessage variant='success' handleClose={this.handleClose}/>
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import { LoadStatus } from "../constants/loadStatus";
 import { getCommunications } from "../actions/commsLeadActions";
+import { UPDATE_LAST_COMM } from '../constants/commsLeadConstants'
 
 export default (state = {}, action) => {
 	switch (action.type) {
@@ -19,6 +20,11 @@ export default (state = {}, action) => {
 				...state,
 				commsLeadLoadStatus: LoadStatus.ERROR
 			};
+		case UPDATE_LAST_COMM:
+			return {
+				...state,
+				communications: action.payload
+			}
 		default:
 			return {
 				...state

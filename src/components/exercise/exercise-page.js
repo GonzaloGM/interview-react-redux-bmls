@@ -24,10 +24,10 @@ class ExercisePage extends Component {
 		}
 
 		let lastCommunication = null;
-		let sortedCommunications = null;
+		let sortedPublishHistory = null;
 		if (communications.length) {
 			lastCommunication = communications[0];
-			sortedCommunications = communications[0].publish_history.sort((a,b) => b.created['$date'] - a.created['$date']);
+			sortedPublishHistory = lastCommunication.publish_history.sort((a,b) => b.created['$date'] - a.created['$date']);
 		}
 
 		return (
@@ -36,8 +36,8 @@ class ExercisePage extends Component {
 					<Grid item xs={12}>
 						{lastCommunication && <EditableCommunicationInformation datelabel='Creation Date' datevalue={lastCommunication.created} communication={lastCommunication} classes={classes} />}
 						{communications.length > 0
-							? sortedCommunications.map(comm => (
-									<CommunicationsAccordion communication={comm} datevalue={comm.created['$date']} key={comm.created['$date']} />
+							? sortedPublishHistory.map((comm, index) => (
+									<CommunicationsAccordion communication={comm} datevalue={comm.created['$date']} key={comm.created['$date'] + index + Math.random()} />
 							  ))
 							: "No communications found."}
 					</Grid>
