@@ -42,30 +42,19 @@ const MenuProps = {
   },
 };
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
-
 class MultipleSelect extends Component {
-  state = {
-    name: [],
-  };
+  // state = {
+  //   selectvalues: this.props.values || [],
+  // };
 
   handleChange = event => {
-    this.setState({ name: event.target.value });
+    console.log('handleChange event', event)
+    this.props.onChange(event);
+    // this.setState({ selectvalues: event.target.value });
   };
 
   render () {
-    const { classes, label } = this.props;
+    const { classes, name, label, selectoptions, values } = this.props;
 
     return (
       <div className={classes.root}>
@@ -73,16 +62,17 @@ class MultipleSelect extends Component {
           <InputLabel htmlFor="select-multiple-checkbox">{label}</InputLabel>
           <Select
             multiple
-            value={this.state.name}
+            name={name}
+            value={values}
             onChange={this.handleChange}
             input={<Input id="select-multiple-checkbox" />}
             renderValue={selected => selected.join(', ')}
             MenuProps={MenuProps}
           >
-            {names.map(name => (
-              <MenuItem key={name} value={name}>
-                <Checkbox checked={this.state.name.indexOf(name) > -1} />
-                <ListItemText primary={name} />
+            {selectoptions.map(opt => (
+              <MenuItem key={opt} value={opt}>
+                <Checkbox checked={values.indexOf(opt) > -1} />
+                <ListItemText primary={opt} />
               </MenuItem>
             ))}
           </Select>

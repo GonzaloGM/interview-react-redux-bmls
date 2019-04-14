@@ -29,14 +29,15 @@ const styles = theme => ({
 
 class EditLastCommunicationForm extends Component {
   state = {
-    summary: this.props.communication.summary,
-    tags: this.props.communication.tags,
-    emails: this.props.communication.emails,
-    phones: this.props.communication.phones,
-    slack_channels: this.props.communication.slack_channels
+    summary: this.props.communication.summary || [],
+    tags: this.props.communication.tags || [],
+    emails: this.props.communication.emails || [],
+    phones: this.props.communication.phones || [],
+    slack_channels: this.props.communication.slack_channels || []
   }
 
   handleInputChange = (event) => {
+    console.log('EditLastCommunicationForm handleInputChange event', event.target)
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -48,13 +49,18 @@ class EditLastCommunicationForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log('EditLastCommunicationForm: form submitted');
+    console.log('EditLastCommunicationForm: form submitted', this.state);
     this.props.updateLastCommunication(this.state);
     this.props.handleSubmit();
   }
 
   render () {
     const { classes } = this.props;
+    const availableTags = getAvailableItemsFromCommunication('tags', this.props.communication);
+    const availableEmails = getAvailableItemsFromCommunication('emails', this.props.communication);
+    const availablePhones = getAvailableItemsFromCommunication('phones', this.props.communication);
+    const availableSlackChannels = getAvailableItemsFromCommunication('slack_channels', this.props.communication);
+
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
@@ -72,24 +78,36 @@ class EditLastCommunicationForm extends Component {
           <MultipleSelect
             label="Tags"
             name="tags"
+            selectoptions={availableTags}
+            onChange={this.handleInputChange}
+            values={this.state.tags}
           />
         </div>
         <div>
           <MultipleSelect
             label="Emails"
             name="emails"
+            selectoptions={availableEmails}
+            onChange={this.handleInputChange}
+            values={this.state.emails}
           />
         </div>
         <div>
           <MultipleSelect
             label="Phones"
             name="phones"
+            selectoptions={availablePhones}
+            onChange={this.handleInputChange}
+            values={this.state.phones}
           />
         </div>
         <div>
           <MultipleSelect
             label="Slack Channels"
             name="slack_channels"
+            selectoptions={availableSlackChannels}
+            onChange={this.handleInputChange}
+            values={this.state.slack_channels}
           />
         </div>
         <br />
@@ -107,3 +125,16 @@ class EditLastCommunicationForm extends Component {
 const wrappedForm = withStyles(styles)(EditLastCommunicationForm);
 
 export default connect(null, { updateLastCommunication })(wrappedForm);
+
+function getAvailableItemsFromCommunication(propertyName, communication) {
+  let commItems = [...communication[propertyName]];
+  let pubItems = communication.publish_history.reduce((acc, pubHistory) => {
+    pubHistory[propertyName].forEach((item) => {
+      if (!acc.includes(item) && !commItems.includes(item)) {
+        acc.push(item);
+      }
+    });
+    return acc;
+  }, []);
+  return commItems.concat(pubItems);
+}

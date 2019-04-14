@@ -12,6 +12,7 @@ export const getCommunications = createActionAsync(GET_COMMS, () => {
 });
 
 export const updateLastCommunication = (formValues) => async (dispatch, getState) => {
+	console.log('updateLastCommunication formValues', formValues);
 	let newCommunications = [ ...getState().commsLead.communications ];
 	let lastCommunication = newCommunications[0];
 	const { summary, tags, emails, phones, slack_channels } = lastCommunication;
@@ -27,6 +28,10 @@ export const updateLastCommunication = (formValues) => async (dispatch, getState
 	};
 	lastCommunication = Object.assign(lastCommunication, {
 		summary: formValues.summary,
+		tags: formValues.tags,
+		emails: formValues.emails,
+		phones: formValues.phones,
+		slack_channels: formValues.slack_channels,
 		publish_history: [ ...lastCommunication.publish_history, newPushHistoryEntry ]
 	});
 
