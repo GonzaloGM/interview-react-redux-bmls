@@ -21,8 +21,4 @@ describe("SnackbarMessage", () => {
     openSnackbar({ message });
     expect(wrapper.find("div[data-testid='snackbar-test']").text()).toEqual(message);
   });
-
-  it("Clicking the close button closes the snackbar", async() => {
-    // TODO
-  })
 });

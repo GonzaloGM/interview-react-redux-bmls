@@ -9,21 +9,19 @@ describe("MultipleSelect", () => {
   let wrapper;
   beforeEach(async () => {
     wrapper = mount(
-      <MultipleSelect
-        label="Tags"
-        name="tags"
-        selectoptions={['tag1', 'tag2', 'tag3']}
-        onChange={() => {}}
-        values={['tag2','tag3']}
-      />
+      <div data-testid="test-wrapper">
+        <MultipleSelect
+          label="Tags"
+          name="tags"
+          selectoptions={['tag1', 'tag2', 'tag3']}
+          onChange={() => {}}
+          values={['tag2','tag3']}
+        />
+      </div>
     );
   });
 
   it("Renders tags in Multiple Select", async () => {
     expect(wrapper.find("input[name='tags']").props().value).toBe('tag2,tag3');
   });
-
-  it("Allows to click items", async() => {
-    // TODO
-  })
 });
