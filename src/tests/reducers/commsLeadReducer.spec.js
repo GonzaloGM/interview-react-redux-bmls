@@ -1,9 +1,4 @@
-// import $http from "axios/index";
-import axios from 'axios'
-axios.defaults.adapter = require('axios/lib/adapters/http')
-const $http = axios.create({
-  baseURL: 'http://localhost:3000/'
-})
+import $http from "../utils/axios";
 import { LoadStatus } from "../../constants/loadStatus";
 import { UPDATE_LAST_COMM } from "../../constants/commsLeadConstants";
 import commsLeadReducer from "../../reducers/commsLeadReducer";
