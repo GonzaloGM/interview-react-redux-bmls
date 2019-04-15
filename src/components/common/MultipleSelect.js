@@ -85,4 +85,5 @@ MultipleSelect.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+export const MultipleSelectTest = MultipleSelect;
 export default withStyles(styles, { withTheme: true })(MultipleSelect);

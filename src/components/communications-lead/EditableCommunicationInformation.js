@@ -43,7 +43,7 @@ class EditableCommunicationInformation extends Component {
   };
 
   handleOpen = () => {
-    console.log('handleOpen props', this.props);
+    // console.log('handleOpen props', this.props);
     this.setState({ openModal: true });
   };
 
@@ -54,7 +54,7 @@ class EditableCommunicationInformation extends Component {
 
   handleSubmit = (e) => {
     console.log('EditableCommunicationInformation: Submitted form!');
-    this.handleClose();
+    // this.handleClose();
     // if I call handleClose it doesn't show Snackbar
     openSnackbar({ 'message': 'Successfully submitted' });
   }

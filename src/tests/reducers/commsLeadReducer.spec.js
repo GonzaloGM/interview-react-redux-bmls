@@ -24,7 +24,7 @@ describe("Communications Lead reducer", () => {
         response: fetchedCommunications
       }
     };
-    const newState = commsLeadReducer(initialState.instructions, action);
+    const newState = commsLeadReducer(initialState.commsLead, action);
     const newSummary = newState.summary;
     expect(oldCommunications).toEqual([]);
     expect(newSummary).not.toBe('');
