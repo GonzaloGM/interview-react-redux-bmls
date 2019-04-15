@@ -43,19 +43,15 @@ class EditableCommunicationInformation extends Component {
   };
 
   handleOpen = () => {
-    // console.log('handleOpen props', this.props);
     this.setState({ openModal: true });
   };
 
   handleClose = () => {
-    console.log('closing modal', this);
     this.setState({ openModal: false });
   };
 
   handleSubmit = (e) => {
-    console.log('EditableCommunicationInformation: Submitted form!');
-    // this.handleClose();
-    // if I call handleClose it doesn't show Snackbar
+    this.handleClose();
     openSnackbar({ 'message': 'Successfully submitted' });
   }
 
@@ -82,7 +78,6 @@ class EditableCommunicationInformation extends Component {
             <Typography variant="subtitle1" id="simple-modal-description">
               <EditLastCommunicationForm communication={this.props.communication} handleCancel={this.handleClose} handleSubmit={this.handleSubmit} />
             </Typography>
-            <SimpleModalWrapped />
           </div>
         </Modal>
         <SnackbarMessage variant='success' handleClose={this.handleClose}/>

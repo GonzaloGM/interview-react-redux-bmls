@@ -48,7 +48,6 @@ class EditLastCommunicationForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log('EditLastCommunicationForm: form submitted', this.state);
     this.props.updateLastCommunication(this.state);
     this.props.handleSubmit();
   }
