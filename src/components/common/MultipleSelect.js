@@ -43,13 +43,8 @@ const MenuProps = {
 };
 
 class MultipleSelect extends Component {
-  // state = {
-  //   selectvalues: this.props.values || [],
-  // };
-
   handleChange = event => {
     this.props.onChange(event);
-    // this.setState({ selectvalues: event.target.value });
   };
 
   render () {

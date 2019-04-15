@@ -1,6 +1,7 @@
 import React from 'react'
 import Chip from '@material-ui/core/Chip'
 import format from 'date-fns/format';
+import './CommunicationInformation.css';
 
 const CommunicationInformation = ({communication, datelabel = 'Publish Date', datevalue, classes, children}) => {
   if (!communication) {
@@ -9,7 +10,7 @@ const CommunicationInformation = ({communication, datelabel = 'Publish Date', da
   const creationDate = format(new Date(datevalue || communication.created['$date']), 'YYYY-MM-DD hh:mm:ss Z');
   return (
     <div>
-      <ul>
+      <ul className="comm-info-list">
         <li data-testid="date"><strong>{datelabel}:</strong> {creationDate}</li>
         <li data-testid="summary"><strong>Summary:</strong> {communication.summary}</li>
         <li data-testid="tags"><strong>Tags:</strong> {communication.tags.map((tag) => <Chip label={tag} key={tag} className={classes.chip} />)}</li>

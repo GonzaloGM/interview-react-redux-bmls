@@ -9,7 +9,6 @@ import Adapter from "enzyme-adapter-react-16/build";
 import initialState from '../../../store/initialState'
 import { LoadStatus } from '../../../constants/loadStatus'
 import commsLeadReducer from '../../../reducers/commsLeadReducer'
-import EditableCommunicationInformation from '../../../components/communications-lead/EditableCommunicationInformation';
 import { Provider } from "react-redux";
 import configureStore from "../../../store";
 import EditLastCommunicationForm from '../../../components/communications-lead/EditLastCommunicationForm'

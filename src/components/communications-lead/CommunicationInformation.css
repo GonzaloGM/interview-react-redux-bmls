@@ -1,0 +1,12 @@
+.comm-info-list {
+  font-size: 0.9rem;
+  list-style-type: none;
+}
+
+.comm-info-list li {
+  padding-top: 0.5rem;
+}
+
+.comm-info-list div[class^='MuiChip'] {
+  margin-right: 0.3rem;
+}
